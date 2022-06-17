@@ -24,6 +24,14 @@ function App() {
         setTasks([newTask, ...tasks])
     }
 
+    function changeStatus(tID: string, isDone: boolean) {
+        let task = tasks.find(t => t.id === tID);
+        if (task) {
+            task.isDone = isDone
+        }
+        setTasks([...tasks]);
+    }
+
     let [filter, setFilter] = useState<FilterValuesType>("all");
 
     function changeFilter(value:FilterValuesType) {
@@ -45,6 +53,8 @@ function App() {
                       removeTask={removeTask}
                       changeFilter={changeFilter}
                       addTask={addTask}
+                      changeStatus={changeStatus}
+                      filter={filter}
             />
         </div>
     );
