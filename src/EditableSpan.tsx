@@ -1,4 +1,5 @@
 import React, {ChangeEvent, useState} from 'react';
+import {TextField} from '@material-ui/core';
 
 type EditableSpanType = {
     title: string
@@ -25,7 +26,7 @@ export function EditableSpan(props: EditableSpanType) {
 
     return (
         editMode?
-            <input value={title} onChange={onChangeTitle} onBlur={deactivateEditMode} autoFocus/> :
+            <TextField value={title} onChange={onChangeTitle} onBlur={deactivateEditMode} autoFocus/> :
             <span onDoubleClick={activateEditMode}>{props.title}</span>
     )
 }
