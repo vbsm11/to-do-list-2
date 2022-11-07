@@ -1,6 +1,6 @@
 import {TaskObjType} from '../App';
 import {v1} from 'uuid';
-import {AddTodolistType, RemoveTodolistType} from './todolists-reducer';
+import {AddTodolistType, RemoveTodolistType, todoListId1, todoListId2} from './todolists-reducer';
 
 type RemoveTaskActionType = {
     type: 'REMOVE-TASK',
@@ -30,20 +30,31 @@ type ChangeTitleActionType = {
 
 export type ActionsType = RemoveTaskActionType | AddTaskActionType | ChangeStatusActionType | ChangeTitleActionType | AddTodolistType | RemoveTodolistType
 
-export const tasksReducer = (state: TaskObjType, action: ActionsType): TaskObjType => {
+const initialState: TaskObjType = {
+    [todoListId1]: [
+        {id: v1(), title: 'HTML&CSS', isDone: true},
+        {id: v1(), title: 'JS', isDone: true},
+        {id: v1(), title: 'React', isDone: false},
+        {id: v1(), title: 'Redux', isDone: false}
+    ],
+    [todoListId2]: [
+        {id: v1(), title: 'Book', isDone: false},
+        {id: v1(), title: 'Milk', isDone: true},
+    ],
+}
+
+export const tasksReducer = (state: TaskObjType = initialState, action: ActionsType): TaskObjType => {
     switch (action.type) {
         case 'REMOVE-TASK': {
             const stateCopy = {...state};
             const tasks = state[action.todolistId];
-            const filteredTasks = tasks.filter(t => t.id !== action.taskId);
-            stateCopy[action.todolistId] = filteredTasks;
+            stateCopy[action.todolistId] = tasks.filter(t => t.id !== action.taskId);
             return stateCopy;
         }
         case 'ADD-TASK': {
             const stateCopy = {...state};
             const tasks = stateCopy[action.todolistId]
-            const newTasks = [{id: v1(), title: action.title, isDone: false}, ...tasks]
-            stateCopy[action.todolistId] = newTasks
+            stateCopy[action.todolistId] = [{id: v1(), title: action.title, isDone: false}, ...tasks]
             return stateCopy;
         }
         case 'CHANGE-TASK-STATUS': {
@@ -71,7 +82,7 @@ export const tasksReducer = (state: TaskObjType, action: ActionsType): TaskObjTy
             return stateCopy;
         }
         default:
-            throw new Error("I don't understand this type")
+            return state
     }
 }
 
