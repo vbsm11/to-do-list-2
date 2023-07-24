@@ -39,9 +39,9 @@ export const TodoList = React.memo((props: PropsType) => {
         props.removeTodolist(props.id);
     }
 
-    const reNameTodolist = (newTitle: string) => {
+    const reNameTodolist = useCallback((newTitle: string) => {
         props.reNameTodolist(newTitle, props.id);
-    }
+    }, [props.reNameTodolist, props.id])
 
     let tasksForTodoList = props.tasks
 
