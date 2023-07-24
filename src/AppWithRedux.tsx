@@ -27,50 +27,51 @@ export type TaskObjType = {
 }
 
 function AppWithRedux() {
-    console.log('dfkgdlfkg')
+
     const dispatch = useDispatch();
+
     const todolists = useSelector<AppRootState, Array<TodoListType>>(state => state.todolists);
     const tasks = useSelector<AppRootState, TaskObjType>(state => state.tasks);
 
     const removeTask = useCallback((id: string, todoListId: string) => {
         const action = removeTaskAC(id, todoListId);
         dispatch(action)
-    }, [])
+    }, [dispatch])
 
     const addTask = useCallback((newTaskTitle: string, todoListId: string) => {
         const action = addTaskAC(newTaskTitle, todoListId);
         dispatch(action)
-    }, [])
+    }, [dispatch])
 
     const changeStatus = useCallback((tID: string, isDone: boolean, todoListId: string) => {
         const action = changeTaskStatusAC(tID, isDone, todoListId);
         dispatch(action)
-    }, [])
+    }, [dispatch])
 
     const changeTasksTitle = useCallback((tID: string, newValue: string, todoListId: string) => {
         const action = changeTaskTitleAC(tID, newValue, todoListId);
         dispatch(action)
-    }, [])
+    }, [dispatch])
 
     const changeFilter = useCallback((value: FilterValuesType, todoListId: string) => {
         const action = changeTodolistFilterAC(todoListId, value);
         dispatch(action)
-    }, [])
+    }, [dispatch])
 
     const removeTodolist = useCallback((todoListId: string) => {
         const action = removeTodolistAC(todoListId);
         dispatch(action);
-    }, [])
+    }, [dispatch])
 
     const reNameTodolist = useCallback((newTitle: string, todoListId: string) => {
         const action = changeTodolistTitleAC(newTitle, todoListId);
         dispatch(action)
-    }, [])
+    }, [dispatch])
 
     const addTodoList = useCallback((title: string) => {
         const action = addTodolistAC(title);
         dispatch(action);
-    }, [])
+    }, [dispatch])
 
     return (
         <div className="App">
