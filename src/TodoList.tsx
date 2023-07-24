@@ -25,7 +25,7 @@ type PropsType = {
     reNameTodolist: (newTitle: string, todoListId: string) => void
 }
 
-export function TodoList(props: PropsType) {
+export const TodoList = React.memo((props: PropsType) => {
 
     const onAllClickHandler = () => props.changeFilter('all', props.id);
     const onActiveClickHandler = () => props.changeFilter('active', props.id);
@@ -93,5 +93,5 @@ export function TodoList(props: PropsType) {
             </div>
         </div>
     );
-}
+})
 
