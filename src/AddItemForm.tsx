@@ -1,4 +1,4 @@
-import {Button, IconButton, TextField} from '@material-ui/core';
+import {IconButton, TextField} from '@material-ui/core';
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import {ControlPoint} from '@material-ui/icons';
 
@@ -20,8 +20,8 @@ export function AddItemForm(props: AddItemPropsType) {
     }
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        error !== '' && setError('');
         setNewTaskTitle(e.currentTarget.value);
-        setError('');
     }
 
     const onKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
