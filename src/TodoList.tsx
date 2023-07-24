@@ -43,6 +43,15 @@ export const TodoList = React.memo((props: PropsType) => {
         props.reNameTodolist(newTitle, props.id);
     }
 
+    let tasksForTodoList = props.tasks
+
+    if (props.filter === 'completed') {
+        tasksForTodoList = props.tasks.filter(t => t.isDone)
+    }
+    if (props.filter === 'active') {
+        tasksForTodoList = props.tasks.filter(t => !t.isDone)
+    }
+
     return (
         <div>
             <h3>
@@ -54,7 +63,7 @@ export const TodoList = React.memo((props: PropsType) => {
             <AddItemForm addItem={addTask}/>
             <div>
                 {
-                    props.tasks.map(t => {
+                    tasksForTodoList.map(t => {
 
                         const onRemoveHandler = () => props.removeTask(t.id, props.id);
                         const onChangeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => props.changeStatus(t.id, e.currentTarget.checked, props.id);
